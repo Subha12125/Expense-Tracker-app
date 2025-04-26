@@ -1,6 +1,6 @@
 import json
 
-#Constructor
+#define a Constructor
 class Expense:
     def __init__(self, description,amount,category):
         self.description = description
@@ -21,6 +21,7 @@ def view_expense():
         print("No expenses found.")
         return
     for i, expense in enumerate(expenses, start=1):
+        #enumerate gives both the index and the value at the same time while looping.
         print("-------------------------")
         print(f"Expense {i}:")
         print(f"Description: {expense.description}")
@@ -33,14 +34,15 @@ def total_expense():
     total = 0
     for expense in expenses:
         total += expense.amount
-    print(f"Total expenses: Rs.{total:.2f}")  
+    print(f"Total expenses: Rs.{total:.2f}")  # tailored to 2 decimal places
 
-#Save expenses in file
+#Save expenses in file (here I am using json file)
 def save_expenses():
     with open("expenses.json", "w") as file:
         data = [{"description": expense.description, "amount": expense.amount, "category": expense.category} for expense in expenses]
         json.dump(data, file)
-#load in file
+
+#load previous data (from json file)
 def load():
     global expenses
     try:
@@ -52,6 +54,8 @@ def load():
     except FileNotFoundError:
         print("No previous data found.")
 
+#Main function to run the program
+#This function will be called when the script is run directly.
 def main():
     load() # Load previous data
     while True:
